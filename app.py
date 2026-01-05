@@ -42,7 +42,7 @@ if percent_left > 0.5:
 elif percent_left > 0.2:
     status = "YELLOW"
     color = "yellow"
-elif percent_left:
+else:
     status = "RED"
     color = "red"
 
