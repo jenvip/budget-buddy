@@ -1,16 +1,5 @@
 import streamlit as st
 
-st.markdown(
-    """
-    <style>
-    .stApp {
-        background-color: #dce7dc;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
 st.title("Budget Buddy 💸")
 
 #backend 
@@ -80,3 +69,15 @@ if st.button("Reset Month"):
     st.session_state.budget = 0.0
     st.session_state.total_spent = 0.0
     st.session_state.transactions = []
+
+#background color
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-color: #dce7dc;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
