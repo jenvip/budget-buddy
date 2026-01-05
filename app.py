@@ -36,10 +36,10 @@ if st.button("Save Budget"):
 st.subheader("Add a purchase: ")
 item = st.text_input("What did you buy?")
 amount = st.number_input("How much did it cost?", min_value = 0.0, step = 1.0)
-purchase_date = st.date_input("Purchase Date", value = None)
+purchase_date = st.date_input("When did you buy it?", value = None)
 
 categories = ["Food", "Transportation", "Entertainment", "Utilities", "Other"]
-category = st.selectbox("Select Category", categories)
+category = st.selectbox("Select Category:", categories)
 
 if st.button("Add Purchase"):
     st.session_state.total_spent += amount
@@ -87,4 +87,3 @@ if st.button("Reset Month"):
     st.session_state.budget = 0.0
     st.session_state.total_spent = 0.0
     st.session_state.transactions = []
-
