@@ -30,6 +30,7 @@ budget_input = st.number_input("Monthly Budget:", min_value = 0.0, step = 10.0)
 
 if st.button("Save Budget"):
     st.session_state.budget = budget_input
+    st.success("Budget saved!")
 
 #add purchase
 st.subheader("Add a purchase: ")
