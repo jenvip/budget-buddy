@@ -1,5 +1,17 @@
 import streamlit as st
 
+#styling
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-color: #dce7dc;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 st.title("Budget Buddy 💸")
 
 #backend 
@@ -23,10 +35,15 @@ if st.button("Save Budget"):
 st.subheader("Add a purchase: ")
 item = st.text_input("What did you buy?")
 amount = st.number_input("How much did it cost?", min_value = 0.0, step = 1.0)
+purchase_date = st.date_input("Purchase Date", value = None)
+
+categories = ["Food", "Transportation", "Entertainment", "Utilities", "Other"]
+category = st.selectbox("Select Category", categories)
 
 if st.button("Add Purchase"):
     st.session_state.total_spent += amount
-    st.session_state.transactions.append((item, amount))
+    st.session_state.transactions.append((item, amount, purchase_date, category))
+    st.success("Purchase added!")
 
 #calculations
 remaining = st.session_state.budget - st.session_state.total_spent
@@ -61,8 +78,8 @@ st.subheader("Purchase History")
 if len(st.session_state.transactions) == 0:
     st.write("No purchases yet.")
 else:
-    for item, amount in st.session_state.transactions:
-        st.write(f"• {item}: -${amount:.2f}")
+    for item, amount, purchase_date, category in st.session_state.transactions:
+        st.write(f"• {purchase_date} — {item} ({category}): -${amount:.2f}")
 
 #reset
 if st.button("Reset Month"):
@@ -70,14 +87,3 @@ if st.button("Reset Month"):
     st.session_state.total_spent = 0.0
     st.session_state.transactions = []
 
-#background color
-st.markdown(
-    """
-    <style>
-    .stApp {
-        background-color: #dce7dc;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
