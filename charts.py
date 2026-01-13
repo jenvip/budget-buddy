@@ -4,7 +4,7 @@ import pandas as pd
 
 #pie chart of spending by category
 def pie_chart():
-    st.subheader("Spending Distribution Among Categories")
+    st.subheader("Spending Distribution Among Categories:")
 
     if not st.session_state.transactions:
         st.info("No transactions yet to display.")
@@ -30,7 +30,7 @@ def pie_chart():
 
 #bar chart of planned budget vs actual spending 
 def bar_chart():
-    st.subheader("Planned Budget vs Actual Spending")
+    st.subheader("Planned Budget vs Actual Spending:")
 
     budget = st.session_state.budget
     spent = st.session_state.total_spent
