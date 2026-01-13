@@ -1,4 +1,5 @@
 import streamlit as st
+from state import save_to_csv
 
 #budget input
 def budget_input():
@@ -7,6 +8,7 @@ def budget_input():
 
     if st.button("Save Budget"):
         st.session_state.budget = budget_input
+        save_to_csv()
         st.success("Budget saved!")
 
 #budget status
@@ -32,9 +34,6 @@ def budget_status():
         unsafe_allow_html=True
     )
 
-    st.subheader("Your Budget Summary")
+    st.subheader("Budget Summary: ")
     st.metric("Total Spent", f"${st.session_state.total_spent:.2f}")
     st.metric("Money Remaining", f"${remaining:.2f}")
-
-
-
