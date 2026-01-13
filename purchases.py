@@ -1,4 +1,6 @@
 import streamlit as st
+import pandas as pd
+from state import save_to_csv
 
 #add purchase
 def add_purchase():
@@ -14,11 +16,12 @@ def add_purchase():
     if st.button("Add Purchase"):
         st.session_state.total_spent += amount
         st.session_state.transactions.append((item, amount, purchase_date, category))
+        save_to_csv()
         st.success("Purchase added!")
 
 #purchase history
 def purchase_history(): 
-    st.subheader("Purchase History")
+    st.subheader("Purchase History:")
 
     if len(st.session_state.transactions) == 0:
         st.write("No purchases yet.")
@@ -26,6 +29,16 @@ def purchase_history():
         for item, amount, purchase_date, category in st.session_state.transactions:
             st.write(f"• {purchase_date} — {item} ({category}): -${amount:.2f}")
 
+        df = pd.DataFrame(st.session_state.transactions, columns=["Item", "Amount", "Date", "Category"])
+        csv_file = df.to_csv(index=False).encode('utf-8')
+
+        st.download_button (
+            label="Download as CSV",
+            data=csv_file,
+            file_name="expenses.csv",
+            mime="text/csv"
+        )
+    
 #reset
 def reset_month():
     if st.button("Reset Month"):
@@ -33,3 +46,5 @@ def reset_month():
         st.session_state.total_spent = 0.0
         st.session_state.transactions = []
 
+        save_to_csv()
+        st.rerun()
